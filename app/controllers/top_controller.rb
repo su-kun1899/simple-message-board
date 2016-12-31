@@ -8,7 +8,8 @@ class TopController < ApplicationController
 
   def initialize
     super
-    if File.exist?MESSAGE_FILE_PATH
+
+    if File.exist? MESSAGE_FILE_PATH
       messages = JSON.parse(File.read(MESSAGE_FILE_PATH))
       # 期限の切れたメッセージは削除
       messages.each do |post_time, message|
@@ -33,6 +34,17 @@ class TopController < ApplicationController
       File.write(MESSAGE_FILE_PATH, @messages.to_json)
       @messages = JSON.parse(@messages.to_json)
     end
+  end
+
+  def save
+    if params['message'].present?
+      message = Message.new(content: params['message'], name: params['name'], mail: params['mail'])
+      @messages[Time.now.to_i] = message
+      # 上書き保存
+      File.write(MESSAGE_FILE_PATH, @messages.to_json)
+    end
+
+    redirect_to action: :index
   end
 end
 
