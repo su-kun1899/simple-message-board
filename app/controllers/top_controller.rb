@@ -12,28 +12,20 @@ class TopController < ApplicationController
     if File.exist? MESSAGE_FILE_PATH
       messages = JSON.parse(File.read(MESSAGE_FILE_PATH))
       # 期限の切れたメッセージは削除
-      messages.each do |post_time, message|
+      messages.each do |post_time, _|
         if Time.now.to_i - post_time.to_i > EXPIRATION_TERM
           messages.delete(post_time)
         end
       end
       File.write(MESSAGE_FILE_PATH, messages.to_json)
+      @messages = JSON.parse(File.read(MESSAGE_FILE_PATH))
+    else
+      @messages = Hash.new
     end
-    @messages = JSON.parse(File.read(MESSAGE_FILE_PATH))
   end
 
   def index
-    # 新規メッセージの保存
-    if request.post?
-      if params['message'].empty?
-        # メッセージが無い時は何もしない
-        return
-      end
-      message = Message.new(content: params['message'], name: params['name'], mail: params['mail'])
-      @messages[Time.now.to_i] = message
-      File.write(MESSAGE_FILE_PATH, @messages.to_json)
-      @messages = JSON.parse(@messages.to_json)
-    end
+    # 初期表示
   end
 
   def save
