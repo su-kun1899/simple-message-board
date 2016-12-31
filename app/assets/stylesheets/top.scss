@@ -1,3 +1,59 @@
 // Place all the styles related to the top controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+h1.title {
+  font-size: 20pt;
+  color: #999;
+}
+
+.form {
+  margin: 50px 0;
+}
+
+.form tr td {
+  color: #999;
+  padding: 0 10px;
+  font-size: 14pt;
+}
+
+th {
+  background-color: #999;
+  color: #eee;
+  font-size: 14pt;
+}
+
+th.message {
+  width: 50%;
+}
+
+.message tr td {
+  background-color: #eee;
+  color: #666;
+  padding: 10px 5px;
+}
+
+td.message {
+  font-size: 12pt;
+}
+
+td.name {
+  font-size: 12pt;
+}
+
+td.mail {
+  font-size: 12pt;
+}
+
+td.time {
+  font-size: 12pt;
+}
+
+div.footer {
+  border: 0 solid #999;
+  border-top-width: 1px;
+  margin: 50px 0 0 0;
+  padding: 3px 0 0 0;
+  color: #999;
+  text-align: right;
+  font-size: 9pt;
+}
