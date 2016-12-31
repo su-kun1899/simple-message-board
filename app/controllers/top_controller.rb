@@ -28,7 +28,7 @@ class TopController < ApplicationController
         # メッセージが無い時は何もしない
         return
       end
-      message = Message.new(message: params['message'], name: params['name'], mail: params['mail'])
+      message = Message.new(content: params['message'], name: params['name'], mail: params['mail'])
       @messages[Time.now.to_i] = message
       File.write(MESSAGE_FILE_PATH, @messages.to_json)
       @messages = JSON.parse(@messages.to_json)
@@ -39,11 +39,11 @@ end
 class Message
   attr_accessor :name
   attr_accessor :mail
-  attr_accessor :message
+  attr_accessor :content
 
-  def initialize(name: name, mail: mail, message: message)
+  def initialize(name: name, mail: mail, content: content)
     self.name = name
     self.mail = mail
-    self.message = message
+    self.content = content
   end
 end

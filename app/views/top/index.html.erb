@@ -28,7 +28,7 @@
   </tr>
   <% @messages.each do |post_time, message| %>
       <tr>
-        <td class="message"><%= message['message'] %></td>
+        <td class="content"><%= message['content'] %></td>
         <td class="name"><%= message['name'] %></td>
         <td class="mail"><%= message['mail'] %></td>
         <td class="post_time"><%= Time.at(post_time.to_i) %></td>
