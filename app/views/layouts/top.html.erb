@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Simple Message Board</title>
+  <%= csrf_meta_tag %>
+
+  <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+  <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+</head>
+<body>
+<h1 class="title">Simple Message Board</h1>
+<%= yield %>
+<div class="footer">copyright su-kun1899. 2016</div>
+</body>
+</html>
