@@ -1,13 +1,13 @@
 class TopController < ApplicationController
   layout 'top'
 
-  #TODO ファイル名と保持期間を定数化したい
-  #nameというよりauthor
+  # メッセージの保存ファイル
+  MESSAGE_FILE_PATH = 'data/messages.json'
 
   def initialize
     super
     begin
-      @messages = JSON.parse(File.read('messages.txt'))
+      @messages = JSON.parse(File.read(MESSAGE_FILE_PATH))
     rescue
       @messages = Hash.new
     end
@@ -28,7 +28,7 @@ class TopController < ApplicationController
       end
       message = Message.new(message: params['message'], name: params['name'], mail: params['mail'])
       @messages[Time.now.to_i] = message
-      File.write('messages.txt', @messages.to_json)
+      File.write(MESSAGE_FILE_PATH, @messages.to_json)
 
       @messages = JSON.parse(@messages.to_json)
     end
