@@ -3,6 +3,8 @@ class TopController < ApplicationController
 
   # メッセージの保存ファイル
   MESSAGE_FILE_PATH = 'data/messages.json'
+  # メッセージの有効期限
+  EXPIRATION_TERM = 24*60*60
 
   def initialize
     super
@@ -10,7 +12,7 @@ class TopController < ApplicationController
       messages = JSON.parse(File.read(MESSAGE_FILE_PATH))
       # 期限の切れたメッセージは削除
       messages.each do |post_time, message|
-        if Time.now.to_i - post_time.to_i > 24*60*60
+        if Time.now.to_i - post_time.to_i > EXPIRATION_TERM
           messages.delete(post_time)
         end
       end
