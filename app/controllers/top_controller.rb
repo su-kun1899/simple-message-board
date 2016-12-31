@@ -2,6 +2,7 @@ class TopController < ApplicationController
   layout 'top'
 
   #TODO ファイル名と保持期間を定数化したい
+  #nameというよりauthor
 
   def initialize
     super
@@ -21,13 +22,16 @@ class TopController < ApplicationController
 
   def index
     if request.post?
+      if params['message'].empty?
+        # メッセージが無い時は何もしない
+        return
+      end
       message = Message.new(message: params['message'], name: params['name'], mail: params['mail'])
       @messages[Time.now.to_i] = message
       File.write('messages.txt', @messages.to_json)
 
       @messages = JSON.parse(@messages.to_json)
     end
-
   end
 end
 
